@@ -1,1 +1,465 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/SadOz8/NovaHubPaid/refs/heads/main/NovaHubCracked"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+ 
+local window = library:AddWindow("Nova Hub Paid Version | CRACKED BY ZTX", {
+	main_color = Color3.fromRGB(1, 3, 5),
+	min_size = Vector2.new(730, 600),
+	can_resize = false,
+})
+ 
+local Main = window:AddTab("Main")
+ 
+        Main:AddLabel("Discord Server:")
+ 
+        Main:AddButton("Copy Link", function()
+            setclipboard("https://discord.gg/wMtx6xdJuz")
+        end)
+ 
+        Main:AddLabel("Local Player")
+        local walkSpeedValue = 16
+        Main:AddTextBox("WalkSpeed", function(text)
+            local speed = tonumber(text)
+            if speed and speed >= 1 and speed <= 500 then
+                walkSpeedValue = speed
+            end
+        end)
+ 
+        local setSpeed = false
+        Main:AddSwitch("Set Speed", function(state)
+            setSpeed = state
+            while setSpeed do
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkSpeedValue
+                task.wait(0.1)
+            end
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+        end)
+ 
+        local jumpPowerValue = 50
+        Main:AddTextBox("JumpPower", function(text)
+            local jump = tonumber(text)
+            if jump then
+                jumpPowerValue = jump
+            end
+        end)
+ 
+        local applyJumpPower = false
+        Main:AddSwitch("Apply JumpPower", function(state)
+            applyJumpPower = state
+            local humanoid = game.Players.LocalPlayer.Character.Humanoid
+            humanoid.UseJumpPower = true
+            humanoid.JumpPower = applyJumpPower and jumpPowerValue or 50
+        end)
+ 
+        local sizeValue = 1
+        Main:AddTextBox("Size", function(text)
+            local size = tonumber(text)
+            if size and size >= 1 and size <= 100 then
+                sizeValue = size
+            end
+        end)
+ 
+        local setSize = false
+        Main:AddSwitch("Set Sizes", function(state)
+            setSize = state
+            local char = game.Players.LocalPlayer.Character
+            if char then
+                local humanoid = char:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    for _, scale in pairs({"BodyDepthScale", "BodyHeightScale", "BodyWidthScale", "HeadScale"}) do
+                        local scaleInstance = humanoid:FindFirstChild(scale)
+                        if scaleInstance then
+                            scaleInstance.Value = state and sizeValue or 1
+                        end
+                    end
+                end
+            end
+        end)
+ 
+local AutoFarm = window:AddTab("Auto Farm")
+ 
+local folder1 = AutoFarm:AddFolder("Tools")
+ 
+local weightOn = false
+folder1:AddSwitch("Weight", function(bool)
+    weightOn = bool
+    task.spawn(function()
+        while weightOn do
+            local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Weight")
+            if tool then
+                tool.Parent = game.Players.LocalPlayer.Character
+            end
+            task.wait(0.1)
+        end
+    end)
+end)
+ 
+local pushupsOn = false
+folder1:AddSwitch("Pushups", function(bool)
+    pushupsOn = bool
+    task.spawn(function()
+        while pushupsOn do
+            local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Pushups")
+            if tool then
+                tool.Parent = game.Players.LocalPlayer.Character
+            end
+            task.wait(0.1)
+        end
+    end)
+end)
+ 
+local handstandOn = false
+folder1:AddSwitch("Handstand", function(bool)
+    handstandOn = bool
+    task.spawn(function()
+        while handstandOn do
+            local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Handstand")
+            if tool then
+                tool.Parent = game.Players.LocalPlayer.Character
+            end
+            task.wait(0.1)
+        end
+    end)
+end)
+ 
+local situpsOn = false
+folder1:AddSwitch("Situps", function(bool)
+    situpsOn = bool
+    task.spawn(function()
+        while situpsOn do
+            local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Situps")
+            if tool then
+                tool.Parent = game.Players.LocalPlayer.Character
+            end
+            task.wait(0.1)
+        end
+    end)
+end)
+ 
+local folder = Main:AddFolder("Rock Farming")
+ 
+local function gettool()
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v.Name == "Punch" and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+            game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+        end
+    end
+    game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "leftHand")
+    game:GetService("Players").LocalPlayer.muscleEvent:FireServer("punch", "rightHand")
+end
+ 
+local tinyIslandRockSwitch = folder:AddSwitch("Farm Tiny Island Rock", function(bool)
+    selectrock = "Tiny Island Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 0 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 0 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local starterIslandRockSwitch = folder:AddSwitch("Farm Starter Island Rock", function(bool)
+    selectrock = "Starter Island Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 100 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 100 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local legendBeachRockSwitch = folder:AddSwitch("Farm Legend Beach Rock", function(bool)
+    selectrock = "Legend Beach Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 5000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 5000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local frostGymRockSwitch = folder:AddSwitch("Farm Frost Gym Rock", function(bool)
+    selectrock = "Frost Gym Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 150000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 150000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local mythicalGymRockSwitch = folder:AddSwitch("Farm Mythical Gym Rock", function(bool)
+    selectrock = "Mythical Gym Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 400000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 400000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local eternalGymRockSwitch = folder:AddSwitch("Farm Eternal Gym Rock", function(bool)
+    selectrock = "Eternal Gym Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 750000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 750000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local legendGymRockSwitch = folder:AddSwitch("Farm Legend Gym Rock", function(bool)
+    selectrock = "Legend Gym Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 1000000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 1000000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local muscleKingGymRockSwitch = folder:AddSwitch("Farm Muscle King Gym Rock", function(bool)
+    selectrock = "Muscle King Gym Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 5000000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 5000000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+local ancientJungleRockSwitch = folder:AddSwitch("Farm Ancient Jungle Rock", function(bool)
+    selectrock = "Ancient Jungle Rock"
+    getgenv().autoFarm = bool
+ 
+    if bool then
+        spawn(function()
+            while getgenv().autoFarm do
+                task.wait()
+                if game:GetService("Players").LocalPlayer.Durability.Value >= 10000000 then
+                    for i, v in pairs(game:GetService("Workspace").machinesFolder:GetDescendants()) do
+                        if v.Name == "neededDurability" and v.Value == 10000000 and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("LeftHand") and 
+                           game.Players.LocalPlayer.Character:FindFirstChild("RightHand") then
+ 
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.RightHand, 1)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 0)
+                            firetouchinterest(v.Parent.Rock, game:GetService("Players").LocalPlayer.Character.LeftHand, 1)
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+ 
+ 
+getgenv().StarterIslandBenchPress = false
+getgenv().StarterIslandSquat = false
+getgenv().StarterIslandDeadlift = false
+getgenv().StarterIslandPullUp = false
+getgenv().StarterIslandBoulder = false
+ 
+getgenv().LegendBeachBenchPress = false
+getgenv().LegendBeachSquat = false
+getgenv().LegendBeachDeadlift = false
+getgenv().LegendBeachPullUp = false
+getgenv().LegendBeachBoulder = false
+ 
+getgenv().FrostGymBenchPress = false
+getgenv().FrostGymSquat = false
+getgenv().FrostGymDeadlift = false
+getgenv().FrostGymPullUp = false
+getgenv().FrostGymBoulder = false
+ 
+getgenv().MythicalGymBenchPress = false
+getgenv().MythicalGymSquat = false
+getgenv().MythicalGymDeadlift = false
+getgenv().MythicalGymPullUp = false
+getgenv().MythicalGymBoulder = false
+ 
+getgenv().EternalGymBenchPress = false
+getgenv().EternalGymSquat = false
+getgenv().EternalGymDeadlift = false
+getgenv().EternalGymPullUp = false
+getgenv().EternalGymBoulder = false
+ 
+getgenv().LegendGymBenchPress = false
+getgenv().LegendGymSquat = false
+getgenv().LegendGymDeadlift = false
+getgenv().LegendGymPullUp = false
+getgenv().LegendGymBoulder = false
+ 
+getgenv().MuscleKingGymBenchPress = false
+getgenv().MuscleKingGymSquat = false
+getgenv().MuscleKingGymDeadlift = false
+getgenv().MuscleKingGymPullUp = false
+getgenv().MuscleKingGymBoulder = false
+ 
+getgenv().JungleGymBenchPress = false
+getgenv().JungleGymSquat = false
+getgenv().JungleGymDeadlift = false
+getgenv().JungleGymPullUp = false
+getgenv().JungleGymBoulder = false
+ 
+local positions = {
+    StarterIsland = {
+        BenchPress = CFrame.new(-17.0609932, 3.31417918, -2.48164988),
+        Squat = CFrame.new(-48.8711243, 3.31417918, -11.8831778),
+        Deadlift = CFrame.new(-48.8711243, 3.31417918, -11.8831778),
+        PullUp = CFrame.new(-33.3047485, 3.31417918, -11.8831778),
+        Boulder = CFrame.new(-33.3047485, 3.31417918, -11.8831778)
+    },
+    LegendBeach = {
+        BenchPress = CFrame.new(470.334656, 3.31417966, -321.053925),
+        Squat = CFrame.new(470.334656, 3.31417966, -321.053925),
+        Deadlift = CFrame.new(470.334656, 3.31417966, -321.053925),
+        PullUp = CFrame.new(470.334656, 3.31417966, -321.053925),
+        Boulder = CFrame.new(470.334656, 3.31417966, -321.053925)
+    },
+    FrostGym = {
+        BenchPress = CFrame.new(-3013.24194, 39.2158546, -335.036926),
+        Squat = CFrame.new(-2933.47998, 29.6399612, -579.946045),
+        Deadlift = CFrame.new(-2933.47998, 29.6399612, -579.946045),
+        PullUp = CFrame.new(-2933.47998, 29.6399612, -579.946045),
+        Boulder = CFrame.new(-2933.47998, 29.6399612, -579.946045)
+    },
+    MythicalGym = {
+        BenchPress = CFrame.new(2371.7356, 39.2158546, 1246.31555),
+        Squat = CFrame.new(2489.21484, 3.67686629, 849.05
